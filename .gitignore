@@ -1,0 +1,9 @@
+# Ignoriere alle 'vendor' Verzeichnisse im Projekt
+vendor/
+
+# Ignoriere alle 'bin' Verzeichnisse im Projekt
+bin/
+
+# Ignoriere alle 'obj' Verzeichnisse im Projekt
+obj/
+server/net/obj/

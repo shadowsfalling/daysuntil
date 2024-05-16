@@ -16,7 +16,7 @@ This project includes implementations in the following technologies:
 - **Back-end Frameworks/Languages:**
   - C# with .NET Core
   - - [x] Base Code 
-  - - [ ] Swagger-Doku 
+  - - [x] Swagger-Doku 
   - - [ ] Unit Tests 
   #
   - Java with Spring Boot 

@@ -1,0 +1,176 @@
+/* Stil des Accordions */
+.accordion .accordion-header {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    display: block;
+}
+
+.accordion .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f4f4f4;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+}
+
+/* Zeigt den Inhalt, wenn die Checkbox gecheckt ist */
+input:checked+.accordion-header+.accordion-content {
+    max-height: 100px;
+    /* Passt die Höhe nach Bedarf an */
+    padding: 10px;
+}
+
+/* Allgemeine Stile */
+body {
+    font-family: Arial, sans-serif;
+}
+
+p {
+    margin: 10px 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: auto;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+input[type="password"],
+input[type="color"],
+select,
+input[type="email"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="color"] {
+    padding: 0;
+}
+
+input[type="submit"],
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="submit"],
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Accordion CSS */
+.accordion .accordion-header {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    text-align: left;
+    outline: none;
+    transition: background-color 0.4s ease;
+    display: block;
+}
+
+.accordion .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    background-color: #f9f9f9;
+    padding: 0;
+    position: relative;
+}
+
+/* Erhöhe die max-height, wenn die Checkbox gecheckt ist */
+input:checked+.accordion-header+.accordion-content {
+    max-height: 200px;
+    /* Je nach Inhaltshöhe anpassen */
+    padding: 18px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: top;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.add {
+    background-color: #0056b3;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 100px;
+    color: white;
+}
+
+.icon {
+    padding: 8px 12px;
+    font-size: 20px;
+}
+
+.navi {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.white-font a {
+    color: white;
+}
+
+.white-font label {
+    width: 90%;
+    position: relative;
+}
+
+.right {
+    position: absolute;
+    right: 15px;
+    top: 3px;
+}
+
+.accordion .accordion-content .right {
+    top: 30px;
+}
+
+.accordion .accordion-content .right a {
+    margin-right: 10px;
+}
+
+

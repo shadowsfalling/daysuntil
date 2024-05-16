@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Countdown;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(schema: "Category", description: "Category model")]
 class Category extends Model
 {
     use HasFactory;

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Services\CategoryServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use OpenApi\Attributes as OA;
 
 class CategoryController extends Controller {
     private $categoryService;
@@ -14,6 +15,21 @@ class CategoryController extends Controller {
         $this->categoryService = $categoryService;
     }
 
+    #[OA\Get(
+        path: '/api/categories',
+        summary: 'List all categories',
+        tags: ['Category'],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'List of all categories',
+                content: new OA\JsonContent(
+                    type: 'array',
+                    items: new OA\Items(ref: '#/components/schemas/Category')
+                )
+            )
+        ]
+    )]
     public function get($id) {
 
         // todo: validation ob user erlaubt ist zu sehen
@@ -21,6 +37,31 @@ class CategoryController extends Controller {
         return Category::find($id);
     }
 
+    #[OA\Post(
+        path: '/api/categories',
+        summary: 'Create a new category',
+        tags: ['Category'],
+        requestBody: new OA\RequestBody(
+            description: 'Data needed to create a new category',
+            required: true,
+            content: new OA\MediaType(
+                mediaType: 'application/json',
+                schema: new OA\Schema(
+                    type: 'object',
+                    required: ['name', 'color', 'user_id'],
+                    properties: [
+                        new OA\Property(property: 'name', type: 'string', description: 'Name of the category'),
+                        new OA\Property(property: 'color', type: 'string', description: 'Color associated with the category'),
+                        new OA\Property(property: 'user_id', type: 'integer', description: 'User ID of the category owner')
+                    ]
+                )
+            )
+        ),
+        responses: [
+            new OA\Response(response: 200, description: 'Category created successfully'),
+            new OA\Response(response: 400, description: 'Error creating category')
+        ]
+    )]
     public function create(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -35,6 +76,39 @@ class CategoryController extends Controller {
         }
     }
 
+    #[OA\Put(
+        path: '/api/categories/{id}',
+        summary: 'Update an existing category',
+        tags: ['Category'],
+        parameters: [
+            new OA\Parameter(
+                name: 'id',
+                in: 'path',
+                required: true,
+                description: 'ID of the category to update',
+                schema: new OA\Schema(type: 'integer')
+            )
+        ],
+        requestBody: new OA\RequestBody(
+            description: 'Data needed to update the category',
+            required: true,
+            content: new OA\MediaType(
+                mediaType: 'application/json',
+                schema: new OA\Schema(
+                    type: 'object',
+                    properties: [
+                        new OA\Property(property: 'name', type: 'string', description: 'Name of the category'),
+                        new OA\Property(property: 'color', type: 'string', description: 'Color of the category'),
+                        new OA\Property(property: 'user_id', type: 'integer', description: 'User ID of the category owner')
+                    ]
+                )
+            )
+        ),
+        responses: [
+            new OA\Response(response: 200, description: 'Category updated successfully'),
+            new OA\Response(response: 400, description: 'Error updating category')
+        ]
+    )]
     public function update(Request $request, $id) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -54,6 +128,24 @@ class CategoryController extends Controller {
         }
     }
 
+    #[OA\Delete(
+        path: '/api/categories/{id}',
+        summary: 'Delete a category',
+        tags: ['Category'],
+        parameters: [
+            new OA\Parameter(
+                name: 'id',
+                in: 'path',
+                required: true,
+                description: 'ID of the category to delete',
+                schema: new OA\Schema(type: 'integer')
+            )
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Category deleted successfully'),
+            new OA\Response(response: 400, description: 'Error deleting category')
+        ]
+    )]
     public function delete($id, Request $request) {
         try {
             $userId = $request->user()->id;

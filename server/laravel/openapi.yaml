@@ -1,0 +1,282 @@
+openapi: 3.0.0
+info:
+  title: 'Days Until API'
+  version: '1.0'
+paths:
+  /api/auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: 'Register a new user'
+      operationId: d764dd091cc4494ae0baf360b03319f3
+      requestBody:
+        description: 'Data needed for registering a new user'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - username
+                - password
+                - email
+              properties:
+                username:
+                  description: 'User`s username'
+                  type: string
+                email:
+                  description: 'User`s email address'
+                  type: string
+                password:
+                  description: 'User`s password'
+                  type: string
+              type: object
+      responses:
+        '201':
+          description: 'User successfully registered'
+        '400':
+          description: 'Bad request'
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: 'User login'
+      operationId: 8dcb70df1020986038d098cc08d05dae
+      requestBody:
+        description: 'Data needed for user login'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  description: 'User`s username'
+                  type: string
+                password:
+                  description: 'User`s password'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'Login successful'
+        '401':
+          description: 'Login failed'
+        '400':
+          description: 'Bad request'
+        '500':
+          description: 'Internal server error'
+  /api/auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: 'User logout'
+      operationId: 69281b12abb272c76871f19cb17ca563
+      responses:
+        '200':
+          description: 'Login successful'
+        '500':
+          description: 'Internal server error'
+  /api/categories:
+    get:
+      tags:
+        - Category
+      summary: 'List all categories'
+      operationId: 2478e8a64f593c3def3d0cd6e0dda308
+      responses:
+        '200':
+          description: 'List of all categories'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+    post:
+      tags:
+        - Category
+      summary: 'Create a new category'
+      operationId: c7568de7109834ae917e2041e9193428
+      requestBody:
+        description: 'Data needed to create a new category'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - color
+                - user_id
+              properties:
+                name:
+                  description: 'Name of the category'
+                  type: string
+                color:
+                  description: 'Color associated with the category'
+                  type: string
+                user_id:
+                  description: 'User ID of the category owner'
+                  type: integer
+              type: object
+      responses:
+        '200':
+          description: 'Category created successfully'
+        '400':
+          description: 'Error creating category'
+  '/api/categories/{id}':
+    put:
+      tags:
+        - Category
+      summary: 'Update an existing category'
+      operationId: 0e686b2748211cc688333ed705dc111f
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the category to update'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: 'Data needed to update the category'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  description: 'Name of the category'
+                  type: string
+                color:
+                  description: 'Color of the category'
+                  type: string
+                user_id:
+                  description: 'User ID of the category owner'
+                  type: integer
+              type: object
+      responses:
+        '200':
+          description: 'Category updated successfully'
+        '400':
+          description: 'Error updating category'
+    delete:
+      tags:
+        - Category
+      summary: 'Delete a category'
+      operationId: ac30197c686b8b6b90e0dc23f2b1f909
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the category to delete'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Category deleted successfully'
+        '400':
+          description: 'Error deleting category'
+  '/api/countdowns/{id}':
+    get:
+      tags:
+        - Countdown
+      summary: 'Get a countdown by ID'
+      operationId: 268f08de62ea3df7acbae1c5e92d4900
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the countdown to retrieve'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Countdown retrieved successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Countdown'
+        '403':
+          description: Forbidden
+    put:
+      tags:
+        - Countdown
+      summary: 'Update an existing countdown'
+      operationId: 4a29218284b455554c8f32c0547367d7
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the countdown to update'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: 'Data to update the countdown'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Countdown'
+      responses:
+        '200':
+          description: 'Countdown updated successfully'
+        '403':
+          description: Forbidden
+  /api/countdowns:
+    post:
+      tags:
+        - Countdown
+      summary: 'Create a new countdown'
+      operationId: c98e3ebfa807d1f0a0f5783d0beb1f68
+      requestBody:
+        description: 'Data needed to create a new countdown'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Countdown'
+      responses:
+        '201':
+          description: 'Countdown created successfully'
+        '403':
+          description: Forbidden
+  /api/countdowns/upcoming:
+    get:
+      tags:
+        - Countdown
+      summary: 'List all upcoming countdowns'
+      operationId: 995a2463e83a819ae233fc5bcba05335
+      responses:
+        '200':
+          description: 'List of upcoming countdowns'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Countdown'
+  /api/countdowns/expired:
+    get:
+      tags:
+        - Countdown
+      summary: 'List all expired countdowns'
+      operationId: f364abcdaf1dc65dfece7d8ee6a277d6
+      responses:
+        '200':
+          description: 'List of upcoming countdowns'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Countdown'
+components:
+  schemas:
+    Category:
+      description: 'Category model'
+    Countdown:
+      description: 'Countdown model'

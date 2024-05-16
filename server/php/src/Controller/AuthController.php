@@ -151,7 +151,8 @@ class AuthController
             $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
             return (array) $decoded;
         } catch (\Exception $e) {
-            throw new Exception("Invalid token: " . $e->getMessage(), 403);
+            http_response_code(403);
+            die("invalid token");
         }
     }
 

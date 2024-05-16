@@ -1,0 +1,306 @@
+openapi: 3.0.0
+info:
+  title: 'Days Until API'
+  version: '1.0'
+paths:
+  /api/auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: 'Register a new user'
+      operationId: 3abbef651a976b6a1e2ce6e77ac141a7
+      requestBody:
+        description: 'Data needed for registering a new user'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - username
+                - password
+                - email
+              properties:
+                username:
+                  description: 'User`s username'
+                  type: string
+                email:
+                  description: 'User`s email address'
+                  type: string
+                password:
+                  description: 'User`s password'
+                  type: string
+              type: object
+      responses:
+        '201':
+          description: 'User successfully registered'
+        '400':
+          description: 'Bad request'
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: 'User login'
+      operationId: 5c6b2b921da7827a3a299d475aec2b7e
+      requestBody:
+        description: 'Data needed for user login'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  description: 'Userss username'
+                  type: string
+                password:
+                  description: 'User`s password'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'Login successful'
+        '401':
+          description: 'Login failed'
+        '400':
+          description: 'Bad request'
+        '500':
+          description: 'Internal server error'
+  /api/categories:
+    get:
+      tags:
+        - Category
+      summary: 'List all categories'
+      operationId: d51a13c1e9e2fb25e4ffdc905a02735d
+      responses:
+        '200':
+          description: 'List of all categories'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+    post:
+      tags:
+        - Category
+      summary: 'Create a new category'
+      operationId: 3a2cc4f2db88c9076b9af07ddeee54df
+      requestBody:
+        description: 'Data needed to create a new category'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - color
+                - user_id
+              properties:
+                name:
+                  description: 'Name of the category'
+                  type: string
+                color:
+                  description: 'Color associated with the category'
+                  type: string
+                user_id:
+                  description: 'User ID of the category owner'
+                  type: integer
+              type: object
+      responses:
+        '200':
+          description: 'Category created successfully'
+        '400':
+          description: 'Error creating category'
+  '/api/categories/{id}':
+    put:
+      tags:
+        - Category
+      summary: 'Update an existing category'
+      operationId: 5e0133ad3c807fcf51927cfb7951bce5
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the category to update'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: 'Data needed to update the category'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  description: 'Name of the category'
+                  type: string
+                color:
+                  description: 'Color of the category'
+                  type: string
+                user_id:
+                  description: 'User ID of the category owner'
+                  type: integer
+              type: object
+      responses:
+        '200':
+          description: 'Category updated successfully'
+        '400':
+          description: 'Error updating category'
+    delete:
+      tags:
+        - Category
+      summary: 'Delete a category'
+      operationId: 3bc358d3daacc5bbbeb4674dc6a4a9f2
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the category to delete'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Category deleted successfully'
+        '400':
+          description: 'Error deleting category'
+  '/api/countdowns/{id}':
+    get:
+      tags:
+        - Countdown
+      summary: 'Get a countdown by ID'
+      operationId: 378c2e4fe15b280166d8b1a1aecde814
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the countdown to retrieve'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Countdown retrieved successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Countdown'
+        '403':
+          description: Forbidden
+    put:
+      tags:
+        - Countdown
+      summary: 'Update an existing countdown'
+      operationId: 48ac16ed1fc33ad6e3e92f868345adfe
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the countdown to update'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: 'Data to update the countdown'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Countdown'
+      responses:
+        '200':
+          description: 'Countdown updated successfully'
+        '403':
+          description: Forbidden
+  /api/countdowns:
+    post:
+      tags:
+        - Countdown
+      summary: 'Create a new countdown'
+      operationId: 78f57f88bd4a7d54fa7b04b9f0baa731
+      requestBody:
+        description: 'Data needed to create a new countdown'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Countdown'
+      responses:
+        '201':
+          description: 'Countdown created successfully'
+        '403':
+          description: Forbidden
+  /api/countdowns/upcoming:
+    get:
+      tags:
+        - Countdown
+      summary: 'List all upcoming countdowns'
+      operationId: 8d94158cf2b8c3569c893e7280fc4efb
+      responses:
+        '200':
+          description: 'List of upcoming countdowns'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Countdown'
+  /api/countdowns/expired:
+    get:
+      tags:
+        - Countdown
+      summary: 'List all expired countdowns'
+      operationId: 2e38083d901006c297c8ecedb2710bab
+      responses:
+        '200':
+          description: 'List of upcoming countdowns'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Countdown'
+components:
+  schemas:
+    Category:
+      description: 'Category model'
+      properties:
+        id:
+          description: 'The unique identifier of the Category'
+          type: integer
+        name:
+          description: 'The name of the Category'
+          type: string
+        color:
+          description: 'The color associated with the Category'
+          type: string
+        userId:
+          description: 'The identifier of the User that this Category belongs to'
+          type: integer
+      type: object
+    Countdown:
+      description: 'Countdown model'
+      properties:
+        id:
+          description: 'The unique identifier of the Countdown'
+          type: integer
+        title:
+          description: 'The title of the Countdown'
+          type: string
+        datetime:
+          description: 'The specific date and time of the Countdown'
+          type: string
+          format: date-time
+        isPublic:
+          description: 'Indicates whether the Countdown is public or private'
+          type: boolean
+        categoryId:
+          description: 'The identifier of the Category associated with this Countdown'
+          type: integer
+        userId:
+          description: 'The identifier of the User who owns this Countdown'
+          type: integer
+      type: object

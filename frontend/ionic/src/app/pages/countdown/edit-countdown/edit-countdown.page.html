@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ countdownId ? 'Countdown bearbeiten' : 'Countdown anlegen' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="countdownForm" (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label position="floating">Titel</ion-label>
+      <ion-input formControlName="title" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Datum und Uhrzeit</ion-label>
+      <ion-datetime formControlName="datetime"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <div class="flex">
+        <ion-checkbox formControlName="is_public" type="checkbox"></ion-checkbox>
+        <ion-label>Ist öffentlich?</ion-label>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Titel</ion-label>
+      <ion-input formControlName="category_id" type="text"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="!countdownForm.valid">{{ countdownId ? 'Aktualisieren' :
+      'Erstellen' }}</ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>pastCountdowns</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngFor="let cd of countdowns">
+    <ion-card [style.background-color]="cd.color || '#fff'">
+      <ion-card-header>
+        <ion-card-title>{{ cd.datetime }} - {{ cd.title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ cd.countdownDisplay }}</p>
+        <ion-button fill="clear" routerLink="/show/{{ cd.id }}"><ion-icon name="eye"></ion-icon></ion-button>
+        <ion-button fill="clear" routerLink="/edit/{{ cd.id }}"><ion-icon name="build"></ion-icon></ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="countdowns.length === 0">Keine Termine gefunden.</div>
+</ion-content>

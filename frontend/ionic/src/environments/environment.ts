@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const SERVER_URL = "http://localhost/daysunitl/server/php";
+export const SERVER_URL = "http://localhost/daysuntil/server/php";
 
 /*
  * For easier debugging in development mode, you can import the following file

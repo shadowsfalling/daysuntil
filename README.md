@@ -17,7 +17,7 @@ This project includes implementations in the following technologies:
   - C# with .NET Core
   - - [x] Base Code 
   - - [x] Swagger-Doku 
-  - - [ ] Unit Tests 
+  - - [ ] Unit Tests (WIP)
   #
   - Java with Spring Boot 
   - - [ ] Base Code 
@@ -31,7 +31,7 @@ This project includes implementations in the following technologies:
   #
   - Laravel
   - - [x] Base Code 
-  - - [ ] Swagger-Doku 
+  - - [x] Swagger-Doku 
   - - [ ] Unit Tests 
   #
 - **Front-end Frameworks:**
